@@ -1,0 +1,13 @@
+head
+body
+foot
+tail
+hand
+fin
+wing
+tire
+side mirror
+seat
+sail
+engine
+mouth

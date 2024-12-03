@@ -1,0 +1,12 @@
+belly
+tail
+wing
+forehead
+eye
+throat
+beak
+leg
+crown
+nape
+back
+breast
