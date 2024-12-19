@@ -1,10 +1,9 @@
 # Aligning Visual and Semantic Interpretability through Visually Grounded Concept Bottleneck Models
+You can find our paper on **[arXiv](https://arxiv.org/abs/2412.11576)** 📄.
 
 Authors: Patrick Knab, Katharina Prasse, Sascha Marton, Christian Bartelt, and Margret Keuper 
 
 ![GCBM-Pipeline](data/Exemplary_explanations/pipeline.png)
-
-
 
 ---
 
