@@ -1,7 +1,11 @@
 # Aligning Visual and Semantic Interpretability through Visually Grounded Concept Bottleneck Models
 You can find our paper on **[arXiv](https://arxiv.org/abs/2412.11576)** 📄.
 
-Authors: Patrick Knab, Katharina Prasse, Sascha Marton, Christian Bartelt, and Margret Keuper 
+**Accepted at ICML 2025** 🎉
+
+Authors: Katharina Prasse*, Patrick Knab*, Sascha Marton, Christian Bartelt, and Margret Keuper 
+
+\* Equal Contribution
 
 ![GCBM-Pipeline](data/Exemplary_explanations/pipeline.png)
 
@@ -12,7 +16,7 @@ Authors: Patrick Knab, Katharina Prasse, Sascha Marton, Christian Bartelt, and M
 This repository is organized into two main components:
 
 1. **Concept Extraction**
-2. **GCBM Training and Visualization**
+2. **DCBM Training and Visualization**
 
 ---
 
@@ -34,7 +38,7 @@ python scripts/create_segments_SAM2.py --dataset cifar100 --device cuda:0
 
 #### Step 3: Embed Segments
 
-Embed the segments into the selected embedding space by running the corresponding script in the `Segments` folder. We primarily report on CLIP models [RN-50, ViT-B16, ViT-L14] and save embeddings to reuse in GCBM training for efficiency.
+Embed the segments into the selected embedding space by running the corresponding script in the `Segments` folder. We primarily report on CLIP models [RN-50, ViT-B16, ViT-L14] and save embeddings to reuse in DCBM training for efficiency.
 
 ```bash
 python scripts/emb_segments_CLIP.py --dataset cifar100 --device cuda:0 --emb CLIP-RN50 --seg_method SAM2
@@ -42,7 +46,7 @@ python scripts/emb_segments_CLIP.py --dataset cifar100 --device cuda:0 --emb CLI
 
 ---
 
-### 2. GCBM Training and Visualization
+### 2. DCBM Training and Visualization
 
 #### Step 1: Create a Validation Set
 
@@ -58,18 +62,18 @@ python data/Datasets/scripts/create_val.py
 
 #### Step 2: Embed Images
 
-Embed images to reuse in GCBM training for time and resource efficiency.
+Embed images to reuse in DCBM training for time and resource efficiency.
 
 ```bash
 python data/Datasets/scripts/embed_CLIP.py
 ```
 
-#### Step 3: Train GCBM
+#### Step 3: Train DCBM
 
-With all necessary files correctly stored in the `data` directory, initiate GCBM training:
+With all necessary files correctly stored in the `data` directory, initiate DCBM training:
 
 ```bash
-python gcbm_training/gcbm_testing.py
+python dcbm_training/dcbm_testing.py
 ```
 
 **Necessary Files in `data/`:**
@@ -87,15 +91,15 @@ python gcbm_training/gcbm_testing.py
    - Contains segmented images.
    - Includes embeddings in the `Seg_embs/` subdirectory.
 
-We also provide multiple Jupyter notebooks in `gcbm_training/` to facilitate training and hyperparameter tuning.
+We also provide multiple Jupyter notebooks in `dcbm_training/` to facilitate training and hyperparameter tuning.
 
 #### Using Your Own Datasets
 
-To apply the code to a new dataset, modify the relevant sections in `utils/gcbm.py` as indicated by the `TODO` comments.
+To apply the code to a new dataset, modify the relevant sections in `utils/dcbm.py` as indicated by the `TODO` comments.
 
-#### GCBM Visualization
+#### DCBM Visualization
 
-Explore interactive explanations with GCBM across different datasets using the Jupyter notebooks in `interpretation/`.
+Explore interactive explanations with DCBM across different datasets using the Jupyter notebooks in `interpretation/`.
 
 ---
 
@@ -118,7 +122,7 @@ The repository is structured as follows:
 ```bash
 .
 ├── concept_extraction/
-├── gcbm_training/
+├── dcbm_training/
 ├── data/
 │   ├── classes/
 │   ├── Concepts/
@@ -134,11 +138,11 @@ The repository is structured as follows:
 
 
 - `concept_extraction/`: Scripts and modules for extracting concepts.
-- `gcbm_training/`: Code for training the GCBM model.
+- `dcbm_training/`: Code for training the DCBM model.
 - `data/`: Directories for classes, concepts, datasets, embeddings, and segments.
 - `experiments/`: Code for experiments detailed in the main paper and supplementary material.
 - `utils/`: Helper scripts for running experiments.
-- `interpretation/`: Tools for visualizing GCBM explanations.
+- `interpretation/`: Tools for visualizing DCBM explanations.
 
 **Important:** Some folders in the `data/` directory may be empty. Due to size limitations, we couldn't upload the complete dataset and corresponding concepts. Therefore, these folders lack content.
 
