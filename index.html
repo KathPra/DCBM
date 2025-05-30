@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DCBM: Data-Efficient Visual Concept Bottleneck Models</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'], ['\\[','\\]']], processEscapes: true },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+    };
+  </script>
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --secondary: #3498db;
+      --bg: #f8f9fa;
+      --text: #2c3e50;
+      --nav-bg: #ffffff;
+      --card-bg: #ffffff;
+      --highlight: #e1f5fe;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; line-height:1.6; color:var(--text); background:var(--bg); }
+    .container { max-width:1200px; margin:auto; padding:2rem; }
+    nav { background:var(--nav-bg); box-shadow:0 2px 4px rgba(0,0,0,0.1); }
+    .nav-container { display:flex; align-items:center; justify-content:space-between; max-width:1200px; margin:auto; padding:1rem 2rem; }
+    .nav-brand { font-size:1.5rem; font-weight:600; color:var(--primary); text-decoration:none; }
+    .nav-links { list-style:none; display:flex; gap:1.5rem; }
+    .nav-links a { text-decoration:none; color:var(--text); font-weight:500; }
+    .nav-links a:hover { color:var(--secondary); }
+    header { background:var(--card-bg); margin:2rem 0; padding:2rem; border-radius:8px; box-shadow:0 2px 4px rgba(0,0,0,0.05); text-align:center; }
+    h1 { font-size:2.5rem; color:var(--primary); margin-bottom:0.5rem; }
+    .subtitle { font-size:1.2rem; color:#666; margin-bottom:1rem; }
+    .paper-info { background:var(--highlight); padding:1rem; border-radius:8px; display:inline-block; margin:1rem 0; }
+    .button { display:inline-block; padding:.8rem 1.5rem; background:var(--secondary); color:#fff; text-decoration:none; border-radius:4px; transition:.3s; margin:.5rem 0; }
+    .button:hover { background:#2980b9; }
+    .badge { display:inline-block; padding:.4rem .8rem; background:#4caf50; color:#fff; border-radius:20px; font-size:.85rem; margin-left:1rem; }
+    .authors { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:2rem; margin-top:1.5rem; }
+    .author { text-align:center; }
+    .author-name { font-weight:600; font-size:1.1rem; }
+    .author-affil { color:#666; font-size:0.9rem; margin:0.3rem 0; }
+    .author-email { font-family:monospace; color:#666; font-size:0.9rem; }
+    .section { background:var(--card-bg); padding:2rem; margin-bottom:2rem; border-radius:8px; box-shadow:0 2px 4px rgba(0,0,0,0.05); }
+    h2 { color:var(--primary); font-size:1.8rem; margin-bottom:1rem; }
+    .abstract { font-size:1.1rem; color:#444; }
+    .highlight-box { background:var(--highlight); padding:1.5rem; border-radius:8px; }
+    .features { display:grid; gap:2rem; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); }
+    .feature-card { background:var(--card-bg); padding:1.5rem; border-radius:8px; box-shadow:0 2px 4px rgba(0,0,0,0.05); }
+    pre { background:var(--card-bg); padding:1rem; border-radius:8px; overflow-x:auto; }
+    .results-grid { display:grid; gap:2rem; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); }
+    .metric-card { background:var(--card-bg); padding:1.5rem; border-radius:8px; text-align:center; box-shadow:0 2px 4px rgba(0,0,0,0.05); }
+    .metric-value { font-size:2rem; font-weight:bold; color:var(--secondary); }
+    img { max-width:100%; border-radius:8px; }
+    footer { text-align:center; padding:2rem 0; color:#666; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="#" class="nav-brand">DCBM</a>
+      <ul class="nav-links">
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#contributions">Contributions</a></li>
+        <li><a href="#method">Method</a></li>
+        <li><a href="#experiments">Experiments</a></li>
+        <li><a href="#conclusion">Conclusion</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="container">
+    <h1>Data-Efficient Visual Concept Bottleneck Models</h1>
+    <p class="subtitle">Interpretable, Dataset-Specific Visual Concepts with Minimal Data</p>
+    <div class="paper-info">
+      <a href="https://openreview.net/pdf?id=BdO4R6XxUH" class="button">📄 View Paper</a>
+      <a href="https://github.com/KathPra/DCBM" class="button">💻 View Code</a>
+      <span class="badge">ICML 2025</span>
+    </div>
+    <div class="authors">
+      <div class="author">
+        <p class="author-name">Katharina Prasse*</p>
+        <p class="author-affil">University of Mannheim</p>
+        <p class="author-email">katharina.prasse@uni-mannheim.de</p>
+      </div>
+      <div class="author">
+        <p class="author-name">Patrick Knab*</p>
+        <p class="author-affil">TU Clausthal</p>
+        <p class="author-email">patrick.knab@tu-clausthal.de</p>
+      </div>
+      <div class="author">
+        <p class="author-name">Sascha Marton</p>
+        <p class="author-affil">TU Clausthal</p>
+        <p class="author-email">sascha.marton@tu-clausthal.de</p>
+      </div>
+      <div class="author">
+        <p class="author-name">Christian Bartelt</p>
+        <p class="author-affil">TU Clausthal</p>
+        <p class="author-email">christian.bartelt@tu-clausthal.de</p>
+      </div>
+      <div class="author">
+        <p class="author-name">Margret Keuper</p>
+        <p class="author-affil">University of Mannheim, Mannheim; Max-Planck-Institute for Informatics</p>
+        <p class="author-email">keuper@mpi-inf.mpg.de</p>
+      </div>
+    </div>
+    <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #666;">* Equal Contribution</p>
+    <div style="text-align:center; margin:2rem 0;">
+      <img src="data/Exemplary_explanations/fig1.png" alt="DCBM Example Explanations" style="max-width:70%; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+      <div style="font-size:1rem; color:#555; margin-top:0.5rem;"> DCBMs extract image regions as concepts. Using vision foundation models, we use crop image regions as concepts for CBM training. Based on few concept samples (50 imgs / class), DCBMs offer interpretability even for fine-grained classification.</div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section id="abstract" class="section">
+      <h2>Abstract</h2>
+      <div style="display:flex;gap:2rem;flex-wrap:wrap;">
+        <div style="flex:2;min-width:300px;"><p class="abstract">Concept Bottleneck Models (CBMs) enhance the interpretability of neural networks by basing predictions on human-understandable concepts. However, current CBMs typically rely on concept sets extracted from large language models or extensive image corpora, limiting their effectiveness in data-sparse scenarios. We propose Data-efficient CBMs (DCBMs), which reduce the need for large sample sizes during concept generation while preserving interpretability. DCBMs define concepts as image regions detected by segmentation or detection foundation models, allowing each image to generate multiple concepts across different granularities. Exclusively containing dataset-specific concepts, DCBMs are well suited for fine-grained classification and out-of-distribution tasks. Attribution analysis using Grad-CAM demonstrates that DCBMs deliver visual concepts that can be localized in test images. By leveraging dataset-specific concepts instead of predefined or general ones, DCBMs enhance adaptability to new domains.</p></div>
+        <div class="highlight-box" style="flex:1;min-width:250px;">
+          <h4 style="margin-bottom:1rem;color:var(--primary);">Core Technologies</h4>
+          <ul style="list-style:none;padding:0;font-size:.9rem;color:#666;">
+            <li>🔍 <strong>Segmentation:</strong> SAM, SAM2, GroundingDINO, Mask R-CNN</li>
+            <li>💡 <strong>Backbone:</strong> CLIP ViT-L/14, CLIP ViT-B/16, ResNet50</li>
+            <li>🎯 <strong>Tasks:</strong> Fine-Grained & OOD Classification</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="introduction" class="section">
+      <h2>Introduction</h2>
+      <p>Deep neural networks achieve state-of-the-art performance but remain opaque, hindering trust in critical applications. Explainable AI (XAI) seeks transparency; Concept Bottleneck Models predict through human-understandable concepts, weighting these to form decisions. Early CBMs use manually defined concepts, while recent works leverage text-aligned sets from large corpora, which can misalign in fine-grained or low-data regimes. DCBMs define concepts as visual regions extracted by foundation models, generating multi-granularity, dataset-specific concepts robust to domain shifts.</p>
+    </section>
+
+    <section id="contributions" class="section">
+      <h2>Contributions</h2>
+      <ul>
+        <li>A data-efficient CBM framework requiring as few as 50 labeled images per class.</li>
+        <li>Dataset-specific concept generation via foundation segmentation and detection models.</li>
+        <li>Comprehensive evaluation demonstrating interpretability and robustness across benchmarks.</li>
+      </ul>
+    </section>
+
+    <section id="method" class="section">
+      <h2>Method</h2>
+      <ol>
+        <li><strong>Proposal:</strong> Sample n images per class; apply SAM2/GroundingDINO for region proposals and filter by area.</li>
+        <li><strong>Clustering:</strong> Encode proposals, cluster embeddings (k-means, k=2048) into visual concepts.</li>
+        <li><strong>Bottleneck Training:</strong> Project image embeddings onto centroids; train sparse linear classifier with L1.</li>
+        <li><strong>Naming:</strong> (Optional) Match centroids to CLIP text embeddings for labels; prune spurious concepts.</li>
+      </ol>
+      <figure style="text-align:center;margin-top:2rem;">
+        <img src="data/Exemplary_explanations/pipeline.png" alt="DCBM Framework" style="max-width:100%; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
+        <figcaption>Figure: DCBM pipeline—Proposal, Clustering, Bottleneck Training, Naming.</figcaption>
+      </figure>
+    </section>
+
+    <section id="experiments" class="section">
+      <h2>Experiments</h2>
+      <p>DCBMs achieve competitive performance while requiring significantly less data for concept generation. Our experiments demonstrate:</p>
+      <div class="results-grid" style="grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:1.5rem;">
+        <div class="metric-card">
+          <h3>Data Efficiency</h3>
+          <div class="metric-value">96%</div>
+          <p>reduction in concept generation data</p>
+        </div>
+        <div class="metric-card">
+          <h3>Performance Gap</h3>
+          <div class="metric-value">6%</div>
+          <p>vs. CLIP linear probe</p>
+        </div>
+        <div class="metric-card">
+          <h3>OOD Robustness</h3>
+          <div class="metric-value">22%</div>
+          <p>error increase on ImageNet-R</p>
+        </div>
+      </div>
+      <div style="margin-top: 2rem; background: var(--highlight); padding: 1.5rem; border-radius: 8px;">
+        <h3 style="color: var(--primary); margin-bottom: 1rem;">Key Findings</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.8rem;">✓ Achieve comparable accuracy with only 50 images per class for concept generation</li>
+          <li style="margin-bottom: 0.8rem;">✓ Maintain performance across ImageNet, Places365, CUB, and CIFAR benchmarks</li>
+          <li style="margin-bottom: 0.8rem;">✓ Superior out-of-distribution robustness compared to baseline methods</li>
+          <li style="margin-bottom: 0.8rem;">✓ Dataset-specific concepts improve fine-grained classification accuracy</li>
+        </ul>
+      </div>
+      <div style="text-align:center; margin:2rem 0;">
+        <img src="data/Exemplary_explanations/example_1.png" alt="DCBM Visual Concept Pipeline" style="max-width:100%; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+        <div style="font-size:1rem; color:#555; margin-top:0.5rem;">Comparison of concept explanations across CBMs. This figure shows concept-based explanations for two images from the Places365 dataset, as generated by four different CBMs: CDM (Panousis et al., 2023), LF-CBM (Oikarinen et al., 2023), DNCBM (Rao et al., 2024), and our proposed DCBM. The examples for CDM, LF-CBM, and DNCBM are adapted from (Rao et al., 2024).</div>
+      </div>
+    </section>
+
+    <section id="conclusion" class="section">
+      <h2>Conclusion</h2>
+      <p>DCBMs offer a visually grounded, data-efficient concept bottleneck approach with minimal samples and strong interpretability. Future directions include extending to regression and refining concept naming.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Prasse, Knab, Marton, Bartelt, Keuper</p>
+    </div>
+  </footer>
+</body>
+</html>
