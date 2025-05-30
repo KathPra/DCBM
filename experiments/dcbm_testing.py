@@ -14,7 +14,7 @@ current_dir = os.getcwd()
 parent_dir = os.path.abspath(os.path.join(current_dir, '..'))
 sys.path.insert(0, parent_dir)
                 
-from utils.gcbm import *
+from utils.dcbm import *
 
 
 # ----------------- Constants -----------------

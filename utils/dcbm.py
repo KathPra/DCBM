@@ -757,6 +757,34 @@ class CBM ():
         # Convert the final cluster concepts back to an array
         clustered_concepts = np.array([clustered_concepts[key] for key in clustered_concepts.keys()])
         self.clustered_concepts = clustered_concepts
+        
+    def concept_intervention(self, concepts_remove, similarity_threshold=0.5):
+        #remove in  self.clustered_concepts all concepts in concepts_remove that are above the similarity threshold
+        
+        self.clustered_concepts = self.full_concepts.copy()
+        
+        # TODO: change backbone if not CLIP or different version of CLIP
+        if self.clip_model == "CLIP-ViT-L14":        
+            model, preprocess = clip.load("ViT-L/14", device="cuda", jit=False)
+        elif self.clip_model == "CLIP-ViT-B16":
+            model, preprocess = clip.load("ViT-B/15", device="cuda", jit=False)
+        elif self.clip_model == "resnet50":
+            model, preprocess = clip.load("RN50", device="cuda", jit=False)
+
+        tokenized_text = clip.tokenize(concepts_remove).to("cuda")
+        #embed concepts_remove with clip text
+        with torch.no_grad():
+            concepts_remove_embedding = model.encode_text(tokenized_text).detach().cpu().numpy()
+        
+        similarities = torch.nn.functional.cosine_similarity(torch.tensor(concepts_remove_embedding), torch.tensor(self.clustered_concepts), dim=1)
+        
+        # Find the indices of the concepts to be removed that are above the similarity threshold
+        indices_remove = np.where(similarities > similarity_threshold)[0]
+        
+        # Remove the concepts from the clustered concepts
+        self.clustered_concepts = np.delete(self.clustered_concepts, indices_remove, axis=0)
+        print(f"Removed {len(indices_remove)} concepts from the clustered concepts.")
+    
     
     def preprocess_module(self, data, concepts, batch_size=1000):
         if concepts is not None:
