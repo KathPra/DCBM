@@ -151,3 +151,19 @@ To run the scripts correctly, please add the required datasets before execution.
 ---
 
 For more details, please refer to the sections and scripts within the repository or consult the paper.
+
+
+## Citation
+
+If you use our code, please cite us
+
+```tex
+@inproceedings{
+dcbm2025,
+title={{DCBM}: Data-Efficient Visual Concept Bottleneck Models},
+author={Prasse, Katharina and Knab, Patrick and Marton, Sascha and Bartelt, Christian and Keuper, Margret},
+booktitle={International Conference on Machine Learning},
+year={2025},
+url={https://openreview.net/forum?id=BdO4R6XxUH}
+}
+```
