@@ -1,4 +1,4 @@
-# Aligning Visual and Semantic Interpretability through Visually Grounded Concept Bottleneck Models
+# DCBM: Data-Efficient Visual Concept Bottleneck Models
 You can find our paper on **[arXiv](https://arxiv.org/abs/2412.11576)** 📄.
 
 **Accepted at ICML 2025** 🎉
