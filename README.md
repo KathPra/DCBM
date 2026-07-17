@@ -149,8 +149,28 @@ To run the scripts correctly, please add the required datasets before execution.
 
 ---
 
+## Reproducibility
+
+| Dataset | # Clusters *k* | Batch size | 
+|---|---|---|
+| ImageNet | 4096 | 512 |
+| Places365 | 2048 | 512 | 
+| CUB-200-2011 | 2048 | 32 | 
+| CIFAR-10 | 256  | 32 | 
+| CIFAR-100 | 2048 | 32 | 
+| MiT-States | 2048 | 32 | 
+| ClimateTV (animals) | 2048 | 32 |
+| AWA2 | 2048 | 32 |
+| CelebA | 2048 | 32 |
+
+
+We train all DCBMs with learning rate: 1e-4, sparsity parameter λ: 1e-4, clustering algorithm: K-Means, centroid type: median of cluster embeddings, concept proposal images: 50 images/class (all images used if a class has <50, e.g. CUB), epochs 200
+
+--- 
+
 For more details, please refer to the sections and scripts within the repository or consult the paper.
 
+--- 
 
 ## Citation
 
